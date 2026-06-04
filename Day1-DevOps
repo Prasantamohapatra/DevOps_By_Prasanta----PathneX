@@ -24,4 +24,6 @@ whoami
 
 hostname
 sudo su
+top
+htop
 
