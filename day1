@@ -1,0 +1,28 @@
+# Below are the linux commands that i learn in day one
+
+PWD
+
+ls
+
+ls -a
+
+ls -ltr
+
+touch 
+
+vi 
+
+nano
+
+mkdir
+
+chmod
+
+chgrp
+
+whoami 
+
+hostname
+sudo su
+top
+htop
