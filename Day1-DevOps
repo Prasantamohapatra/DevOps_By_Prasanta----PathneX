@@ -23,5 +23,5 @@ chgrp
 whoami 
 
 hostname
-
+sudo su
 
