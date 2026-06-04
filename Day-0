@@ -1,0 +1,16 @@
+On Day 0, we went through the complete roadmap that will be covered to become a proficient DevOps Engineer.
+
+The technologies and tools included in the roadmap are:
+
+Operating System:** Linux
+Programming/Scripting Language:** Shell Scripting
+Cloud Platform:** AWS
+CI/CD Tools:** Jenkins, GitHub Actions
+Containerization:** Docker
+Configuration Management Tool:** Ansible
+Container Orchestration Tool:** Kubernetes (K8s)
+Infrastructure as Code (IaC):** Terraform
+Monitoring:** Prometheus, Grafana
+Logging:** ELK Stack (Elasticsearch, Logstash, Kibana)
+
+This roadmap provides a structured path to gaining the skills required to become a proficient DevOps Engineer.
