@@ -1,0 +1,122 @@
+Git & GitHub Setup
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install git
+
+git config --global user.name prasantamohapatra
+git config --global user.email prasantamohapatra@gmail.com
+
+ssh-keygen
+cat ~/.ssh/id_ed25519.pub
+
+git clone git@github.com:Prasantamohapatra/DevOps_By_Prasanta----PathneX.git
+Git Branching & PR Workflow
+git branch
+git status
+
+git checkout -b structure
+git add .
+git commit -m STRUCTURE_CHANGE
+git push -u origin structure
+
+git fetch
+git pull
+
+git checkout main
+git branch -D structure
+
+git checkout -b day3
+Linux Files & Directories
+mkdir daily_coding_practice
+mv Day-0 Day0-DevOps
+mv Day0-DevOps Day1-DevOps daily_coding_practice/
+
+touch README.md
+touch test.txt
+
+echo end of line >> README.md
+echo end of line >> test.txt
+
+ls
+ls -la
+ls -ltr
+File Permissions
+chmod 755 test.txt
+chmod u+w test.txt
+chmod 700 test.txt
+chmod 617 test.txt
+chmod 000 test.txt
+chmod u-rwx test.txt
+
+umask
+umask 000
+umask 077
+Users & Groups
+cat /etc/passwd
+cat /etc/group
+
+sudo useradd pm
+
+sudo chown pm test.txt
+sudo chown ubuntu test.txt
+
+sudo chgrp pm test.txt
+Alias
+alias ll='ls -ltr'
+ll
+File Recovery
+lsof | grep deleted
+git restore test.txt
+Compression & Archiving
+gzip file1
+gunzip file1.gz
+
+tar -czvf file1.tar file1
+tar -xzvf file1.tar
+
+gzip Day0-DevOps
+gunzip Day0-DevOps.gz
+Process Management
+top
+ps -aux
+
+sudo kill <PID>
+
+pgrep
+pkill <process_name>
+Package Installation
+sudo apt update
+sudo apt install procps
+Commands I would remove completely
+
+These are typos, failed commands, duplicates, or not useful for revision:
+
+lss
+LS
++
+touch2
+
+chmond +755 test.txt
+
+giz -czvf file1.zip file
+giz -czvf file1.zip file1
+gizp -czvf file1.zip file1
+
+gunzip file1.gze
+
+sudo pkil amazon-ssm-agen
+
+sudo apt install pkill
+sudo apt install pkil
+
+Error: Unable to locate package pkil
+ErrorErrorErrorErrorErrorErrorErrorErrorError
+
+pgrp
+
+git config --global user.email user.name
+
+git restore
+git restore main
+
+shutdown
