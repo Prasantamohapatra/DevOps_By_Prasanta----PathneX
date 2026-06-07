@@ -1,0 +1,18 @@
+Day5 Learnings are listed below-
+
+## Confugured ec2 server with  git hub
+
+sudo apt install git -y
+git --version
+ssh -keygen
+cat /.ssh/id_45568.pub
+copy the key and put it over git hub in the setting>sshkey
+git config --global user.name "pm"
+git config --global user.email "pm@gmail.com" 
+git clone git@url
+cd gitdir
+git checkout -b feature_branch
+touch file
+ git add.
+git commit -m "1st commit"
+git push -u origin feature_branch
