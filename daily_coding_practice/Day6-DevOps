@@ -34,5 +34,4 @@ Public subnet-Exposed to internet via internet gateway
 Private subnet- exposed to internet vai NAT which is placed in Public subnet
 NAT Gateway- Network address tranlation is used to provide a sured internet to the pvt subnet
 Internet gateway- Being used by Public subnet to connect to the internet 
-Routetabel- used to route the tracfic to the subnect based on the rules
-
+Routetabel- used to route the tracfic to the subnect based on the rules.
