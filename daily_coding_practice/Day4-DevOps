@@ -1,0 +1,42 @@
+Some handson pracice arround these commmands:-   
+ 1  history
+    2  uname
+    3  whoami
+    4  df -h
+    5  du 
+    6  free
+    8  uptime
+    9  lscpu
+   10  lspci
+   11  lsusb
+   12  ifconfig
+   13  ping google.com
+   14  netstat
+   15  ss
+   16  ssh
+   17  export vname=pm
+   18  echo vname
+   19  echo $vname
+   21  env
+   22  env | grep 'pm'
+   23  unset vname
+   24  env | grep 'pm'
+   25  export -p
+   26  env vename=cat
+   27  printenv
+   28  vename Day1-DevOps 
+   29  env vename=cat
+   30  vename Day1-DevOps 
+   31  env vename=c cat
+   33  env vname=prasanta echo "$vname"
+   34  echo $vanme
+   35  echo $vname
+   36  ls
+   37  finger
+   38  sudo apt install finger
+   39  finger
+   40  finger ubuntu
+   41  last
+   42  history 
+   43  ll
+   44  history >> Day4-DevOps 
