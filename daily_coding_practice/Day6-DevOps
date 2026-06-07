@@ -1,0 +1,38 @@
+## Getting started with AWS
+
+AWS- Amazon web services works on pay as you go model which means you will only pay if you are using the services
+provide services in three model 1- IAAS 2-PAAS 3-SAAS
+
+IAAS- Infrastructure  As a service
+AWS provides network databses servser
+
+PAAS- Platform as a service
+AWS provides EC2,IAM,S3 etc
+
+SAAS- Software as a service
+examples are gmail google docs etc
+
+EC2- Elastic compute cloud
+
+EC2 is a vertual server provided by AWS which can be remotly acessed over the internet 
+
+Horizontal Scaleing - Addding more server to handel traffic spike
+Vertical scaleing - Adding more resourses to the same server
+
+S3 is a simple storage service where we can store data as an object
+
+IAM iddentity acess management 
+
+it help to give user acess based on there role or adding the users into polices based on authentication authorisation
+
+VPC Vertual private cloud
+
+VPC allows us to create a vertual isolated network within the aws
+componets are Public subnet,private subnet,NAT gateway,Internet gateway,routetabel
+ 
+Public subnet-Exposed to internet via internet gateway
+Private subnet- exposed to internet vai NAT which is placed in Public subnet
+NAT Gateway- Network address tranlation is used to provide a sured internet to the pvt subnet
+Internet gateway- Being used by Public subnet to connect to the internet 
+Routetabel- used to route the tracfic to the subnect based on the rules
+

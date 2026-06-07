@@ -16,3 +16,11 @@ touch file
  git add.
 git commit -m "1st commit"
 git push -u origin feature_branch
+
+
+## Additinal commands
+
+git remote add origin "repo url"
+git fecth
+git cheerypick "commitid"
+
