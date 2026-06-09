@@ -1,0 +1,88 @@
+
+##On Day 7, we had a session covering multiple AWS services, including Session Manager, CloudWatch, CloudTrail, Route 53, AWS Shield, AWS Inspector, Auto Scaling, Lambda, EKS, WAF, and AWS GuardDuty.
+
+1. Session Manager
+
+AWS Session Manager allows users to access EC2 instances securely without opening port 22 (SSH) in the inbound security group rules. It eliminates the need for SSH keys and provides secure browser-based or CLI-based access to instances.
+
+2. CloudWatch
+
+Amazon CloudWatch is a monitoring and observability service used to monitor AWS resources and applications. It helps track metrics such as CPU utilization, memory usage, disk usage, and network traffic. CloudWatch also stores logs and allows users to create alarms and notifications based on specific thresholds.
+
+3. CloudTrail
+
+AWS CloudTrail is used for auditing and governance purposes. It records all API calls and activities performed within an AWS account. These logs can be stored in Amazon S3 and analyzed for security, compliance, and troubleshooting purposes.
+
+4. Route 53
+
+Amazon Route 53 is AWS's Domain Name System (DNS) and traffic routing service. It translates domain names into IP addresses and routes user requests to the appropriate AWS resources, such as Elastic Load Balancers (ELBs), EC2 instances, or CloudFront distributions.
+
+Route 53 supports various routing policies, including:
+
+Latency-based routing
+Geolocation routing
+Weighted routing
+Failover routing
+
+This helps deliver traffic efficiently based on user location and application requirements.
+
+5. AWS Shield
+
+AWS Shield is a managed security service that protects AWS resources against Distributed Denial of Service (DDoS) attacks. It automatically detects and mitigates DDoS attacks to ensure application availability and reliability.
+
+6. AWS Inspector
+
+Amazon Inspector is a vulnerability management service that continuously scans AWS resources for security vulnerabilities and misconfigurations. It identifies security risks and provides recommendations for remediation.
+
+7. Auto Scaling
+
+AWS Auto Scaling automatically adjusts resources based on application demand.
+
+Horizontal Scaling: Adds or removes instances based on traffic.
+Vertical Scaling: Increases or decreases the compute capacity (CPU, memory) of an existing instance.
+
+This helps maintain performance while optimizing costs.
+
+8. AWS Lambda
+
+AWS Lambda is a serverless compute service that allows users to run code without provisioning or managing servers.
+
+Key features:
+
+Supports languages such as Python, Node.js, Java, and more.
+Executes code in response to events.
+Maximum execution time is 15 minutes per invocation.
+Users are charged only for the compute time consumed.
+9. Amazon EKS
+
+Amazon Elastic Kubernetes Service (EKS) is a managed Kubernetes service provided by AWS. It simplifies the deployment, management, and scaling of containerized applications using Kubernetes.
+
+Features include:
+
+Managed Kubernetes control plane
+High availability
+Multi-AZ deployment support
+Integration with AWS services
+10. AWS WAF
+
+AWS Web Application Firewall (WAF) helps protect web applications from common security threats such as:
+
+SQL Injection (SQLi)
+Cross-Site Scripting (XSS)
+Malicious bots
+Common web exploits
+
+WAF allows users to create rules that filter and monitor incoming HTTP/HTTPS requests.
+
+11. AWS GuardDuty
+
+Amazon GuardDuty is a threat detection service that continuously monitors AWS accounts, workloads, and data for malicious or suspicious activity.
+
+It helps detect:
+
+Unauthorized access attempts
+Compromised instances
+Suspicious API calls
+Malware activity
+
+GuardDuty provides actionable security findings and recommendations to help address threats quickly.
