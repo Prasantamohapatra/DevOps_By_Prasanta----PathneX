@@ -1,0 +1,101 @@
+
+## 🔹 Ansible — Use Jinja2 Template
+```yaml
+- name: Deploy template for Prasanta Pathnex
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Copy template file
+      template:
+        src: pathnex.conf.j2
+        dest: /etc/pathnex.conf
+```
+
+---
+
+## 🔹 Terraform — Internet Gateway
+```hcl
+resource "aws_internet_gateway" "PrasantaPathnexIGW" {
+  vpc_id = aws_vpc.PathnexVPC.id
+
+  tags = {
+    Name = "Prasanta-Pathnex-IGW"
+  }
+}
+```
+
+---
+
+## 🔹 Kubernetes — Create ConfigMap
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prasanta-pathnex-config
+data:
+  APP_MODE: "production"
+  WELCOME_MSG: "Hello Prasanta Pathnex"
+```
+
+---
+
+## 🔹 Shell Script — Check CPU Load
+```bash
+#!/bin/bash
+
+LOAD=$(uptime | awk '{print $10}')
+echo "Current CPU Load: $LOAD"
+```
+
+---
+
+# Artifacts and Archiving
+
+## 🔹 Jenkins Pipeline — Archive Artifacts  
+I am replicating how to **save build artifacts for future use**.
+```groovy
+pipeline {
+    agent any
+    environment {
+        INSTITUTE_NAME = "Prasanta Pathnex"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/Pathnex/sample-java-app.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+    }
+}
+```
+
+---
+
+## 🔹 GitLab CI — Artifacts  
+I am replicating how to **store artifacts in GitLab CI**.
+```yaml
+stages:
+  - build
+
+build:
+  stage: build
+  image: maven:3.8.1-jdk-17
+  script:
+    - git clone https://github.com/Pathnex/sample-java-app.git
+    - cd sample-java-app
+    - mvn clean package
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 1 week
