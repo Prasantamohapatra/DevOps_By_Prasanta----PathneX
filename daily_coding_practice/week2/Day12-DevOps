@@ -1,0 +1,103 @@
+Day 12 — File Content, RDS Skeleton, Rolling Update, Backup
+🔹 Ansible — Ensure File With Content
+yaml
+- name: Create config file for Prasanta Pathnex
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Write content to file
+      copy:
+        dest: /etc/prasanta-pathnex.conf
+        content: |
+          Welcome to Prasanta Pathnex DevOps Training
+          Today is Day 12
+🔹 Terraform — RDS Skeleton
+hcl
+resource "aws_db_instance" "PrasantaPathnexRDS" {
+  allocated_storage      = 20
+  engine                 = "mysql"
+  instance_class         = "db.t3.micro"
+  name                   = "prasanta_pathnexdb"
+  username               = "admin"
+  password               = "password123"
+  skip_final_snapshot    = true
+}
+🔹 Kubernetes — Rolling Update Strategy
+yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prasanta-pathnex-rolling
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: roll
+  template:
+    metadata:
+      labels:
+        app: roll
+    spec:
+      containers:
+        - name: web
+          image: nginx
+🔹 Shell Script — Backup Directory
+bash
+#!/bin/bash
+
+SOURCE="/var/log"
+DEST="/backup/prasanta-pathnex-$(date +%F).tar.gz"
+
+tar -czf $DEST $SOURCE
+echo "Backup created at: $DEST"
+Multi-branch Pipelines
+🔹 Jenkins Pipeline — Multi-branch
+I am replicating how to handle multiple branches in Jenkins pipelines.
+
+groovy
+pipeline {
+    agent any
+    environment {
+        INSTITUTE_NAME = "Prasanta Pathnex"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+    }
+}
+🔹 GitLab CI — Branch Specific Jobs
+I am replicating how to run jobs for specific branches in GitLab CI.
+
+yaml
+stages:
+  - build
+
+build-main:
+  stage: build
+  image: maven:3.8.1-jdk-17
+  script:
+    - mvn clean compile
+  only:
+    - main
+
+build-dev:
+  stage: build
+  image: maven:3.8.1-jdk-17
+  script:
+    - mvn clean compile
+  only:
+    - dev
