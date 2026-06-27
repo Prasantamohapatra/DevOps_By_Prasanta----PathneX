@@ -1,0 +1,98 @@
+Day 25 — Lineinfile, Key Pair, Multi-Container, File Count
+🔹 Ansible — Modify Existing Line
+yaml
+- name: Update SSH config for Prasanta Pathnex
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Disable root login
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^PermitRootLogin"
+        line: "PermitRootLogin no"
+🔹 Terraform — EC2 Key Pair Output
+hcl
+resource "aws_key_pair" "PrasantaPathnexKey" {
+  key_name   = "PrasantaPathnexKey"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
+output "PrasantaPathnex_Key_Name" {
+  value = aws_key_pair.PrasantaPathnexKey.key_name
+}
+🔹 Kubernetes — Multi-Container Pod (Sidecar Logging)
+yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prasanta-pathnex-sidecar
+spec:
+  containers:
+    - name: app
+      image: nginx
+    - name: log-writer
+      image: busybox
+      command: ["sh", "-c", "while true; do echo log entry; sleep 5; done"]
+🔹 Shell Script — Count Files in Directory
+bash
+#!/bin/bash
+
+DIR="/var/log"
+
+COUNT=$(ls $DIR | wc -l)
+
+echo "Total files in $DIR: $COUNT"
+Advanced Caching
+🔹 Jenkins Pipeline — Cache Dependencies
+I am replicating how to cache Maven dependencies with realistic labels.
+
+groovy
+pipeline {
+    agent any
+    environment {
+        INSTITUTE_NAME = "Prasanta Pathnex"
+        TEAM = "DevOps"
+        ENV = "staging"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/Pathnex/sample-java-app.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                if [ -d ".m2" ]; then
+                    echo "Using cached dependencies for $INSTITUTE_NAME in $ENV by $TEAM"
+                else
+                    mvn clean compile
+                fi
+                '''
+            }
+        }
+    }
+}
+🔹 GitLab CI — Cache Dependencies
+I am replicating how to cache dependencies in GitLab CI with tags.
+
+yaml
+stages:
+  - build
+
+variables:
+  INSTITUTE_NAME: "Prasanta Pathnex"
+  TEAM: "DevOps"
+  ENV: "staging"
+
+build:
+  stage: build
+  image: maven:3.8.1-jdk-17
+  cache:
+    key: "${ENV}-maven-cache"
+    paths:
+      - .m2/repository
+  script:
+    - mvn clean compile
+    - echo "Cached dependencies for $INSTITUTE_NAME in $ENV by $TEAM"
