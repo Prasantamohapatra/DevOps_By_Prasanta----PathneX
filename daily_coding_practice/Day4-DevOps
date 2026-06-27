@@ -1,0 +1,97 @@
+## Day4 - more packages ,key pair,services
+## Ansible -install multiple packages
+
+- name : install packges for pathnex
+host;all
+become :yes
+
+tasks:
+- name :install tolls
+yum:
+name:
+- git
+- wget
+stage:  present
+
+
+## terraform _ec2 with key pair (c6i.8xlarge)
+
+provider "aws"{
+    region ="us-east-1"
+}
+
+resources "aws_key_pair" "pathnexKey"{
+
+    key_name="pathnexkey"
+    public_key="ssh-rsa AAAA...."
+}
+
+resource "aws_instance" "pathnexEc2"{
+    ami ="ami-09876545rfghnjmk"
+    instance_type="c6i.8xlarge"
+    key_name="aws_key_pair.pathnexkey.key_name"
+tags={
+    Name="pathnex-Ec2"
+}
+}
+
+## K8s -Create Cluser IP services
+ apiVersion:v1
+ kind:services
+ meatdata:
+  name :pathnex-service
+  spec:
+  selector:
+  app: pathnex-app
+  poers:
+  - port:80
+  targetport:80
+
+  ## parrallel builds
+  ## Jenkins Pipeline Parallel build & test
+  we will learn how run build test at the same time
+
+  pipiline {
+
+    agent any
+    stages{
+        stage ('Patallel tasks'){
+            parallel {
+                stage('Build'){
+                    steps{
+                        sh 'mvn clean compile'
+                    }
+                }
+                stage ('test'){
+                        steps{
+                            sh "mvn test"
+                        }
+                    }
+                }
+            }
+        }
+    }
+  
+
+  ## Gitlab CI parallel jobs
+  we will learn how to run parallel jobs in gitlab ci
+
+  stage:
+  - build-test
+
+  maven-build:
+  stage:build-test
+  image:mavne:3.8.1-jdk-17
+  script:
+  - git clone https://github.com/Pathnex/sample-java-app.git
+  - cd sample-java-app
+  - mvn clean compile
+  parallel:1
+
+  maven-test:
+  stage:build-test
+  image:maven:3.8.1-jdk-17
+  script:
+  - cd sample-java-app
+  - mvn test
+  parallel:1
