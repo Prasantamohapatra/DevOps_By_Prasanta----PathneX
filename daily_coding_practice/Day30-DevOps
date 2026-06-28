@@ -1,0 +1,141 @@
+Day 30 — SPEED TYPING (LEVEL 3)
+🔹 Ansible — Create User with SSH Key
+yaml
+- name: Create Prasanta Pathnex admin user
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create user
+      user:
+        name: pathnex-admin
+        shell: /bin/bash
+        state: present
+
+    - name: Add SSH key
+      authorized_key:
+        user: pathnex-admin
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+🔹 Terraform — EC2 with Project Tag
+hcl
+resource "aws_instance" "PrasantaPathnexEC2" {
+  ami           = "ami-0abcd1234abcd1234"
+  instance_type = "c5.xlarge"
+
+  tags = {
+    Project = "Prasanta-Pathnex-Training"
+  }
+}
+🔹 Kubernetes — Deployment + ClusterIP
+yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prasanta-pathnex-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: prasanta-pathnex
+  template:
+    metadata:
+      labels:
+        app: prasanta-pathnex
+    spec:
+      containers:
+        - name: app
+          image: nginx
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prasanta-pathnex-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: prasanta-pathnex
+  ports:
+    - port: 80
+      targetPort: 80
+🔹 Shell Script — Menu for System Checks
+bash
+#!/bin/bash
+
+echo "Choose an option:"
+echo "1) IP"
+echo "2) Disk"
+echo "3) Memory"
+read choice
+
+case $choice in
+  1) hostname -I ;;
+  2) df -h ;;
+  3) free -h ;;
+  *) echo "Invalid choice" ;;
+esac
+Jenkins Pipeline — Automate All Tasks
+I am replicating how to automate all tasks in a Jenkins Pipeline under real-world stages.
+
+groovy
+pipeline {
+    agent any
+    environment {
+        INSTITUTE_NAME = "Prasanta Pathnex"
+        TEAM = "DevOps"
+        ENV = "prod"
+        PROJECT = "Prasanta-Pathnex-Training"
+    }
+    stages {
+        stage('Infrastructure') {
+            steps {
+                sh 'terraform apply -auto-approve'
+            }
+        }
+        stage('App Deployment') {
+            steps {
+                sh 'ansible-playbook user.yml'
+                sh 'kubectl apply -f k8s-deployment.yml'
+            }
+        }
+        stage('Monitoring Checks') {
+            steps {
+                sh './menu-checks.sh'
+            }
+        }
+    }
+}
+GitLab CI — Realistic Pipeline
+I am replicating how to combine all tasks in a GitLab CI pipeline.
+
+yaml
+stages:
+  - infrastructure
+  - app_deployment
+  - monitoring_checks
+
+variables:
+  INSTITUTE_NAME: "Prasanta Pathnex"
+  TEAM: "DevOps"
+  ENV: "prod"
+  PROJECT: "Prasanta-Pathnex-Training"
+
+infrastructure:
+  stage: infrastructure
+  image: hashicorp/terraform:latest
+  script:
+    - terraform init
+    - terraform apply -auto-approve
+
+app_deployment:
+  stage: app_deployment
+  image: alpine:latest
+  script:
+    - ansible-playbook user.yml
+    - kubectl apply -f k8s-deployment.yml
+
+monitoring_checks:
+  stage: monitoring_checks
+  image: alpine:latest
+  script:
+    - ./menu-checks.sh

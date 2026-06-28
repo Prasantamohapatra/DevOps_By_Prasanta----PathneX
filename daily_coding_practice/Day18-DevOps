@@ -1,0 +1,99 @@
+Day 18 — Facts, Variables, Affinity, Log Archiving
+🔹 Ansible — Use Ansible Facts
+yaml
+- name: Show system facts for Prasanta Pathnex
+  hosts: all
+
+  tasks:
+    - name: Print OS info
+      debug:
+        var: ansible_facts['os_family']
+
+    - name: Print IP address
+      debug:
+        var: ansible_facts['default_ipv4']['address']
+🔹 Terraform — Variables, Outputs, tfvars
+hcl
+# variables.tf
+variable "instance_type" {
+  default = "c6a.12xlarge"
+}
+
+# main.tf
+resource "aws_instance" "PrasantaPathnexServer" {
+  ami           = "ami-0abcd1234abcd1234"
+  instance_type = var.instance_type
+}
+
+# output
+output "prasanta_pathnex_ip" {
+  value = aws_instance.PrasantaPathnexServer.public_ip
+}
+🔹 Kubernetes — Node Affinity
+yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prasanta-pathnex-affinity
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: disktype
+                operator: In
+                values:
+                  - ssd
+  containers:
+    - name: web
+      image: nginx
+🔹 Shell Script — Archive Log Files
+bash
+#!/bin/bash
+
+tar -czf /backup/prasanta-pathnex-logs-$(date +%F).tar.gz /var/log/
+echo "Logs archived."
+Rollback Simulation
+🔹 Jenkins Pipeline — Rollback on Failure
+I am replicating how to simulate rollback if deployment fails.
+
+groovy
+pipeline {
+    agent any
+    environment {
+        INSTITUTE_NAME = "Prasanta Pathnex"
+    }
+    stages {
+        stage('Deploy') {
+            steps {
+                script {
+                    try {
+                        sh 'echo "Deploying $INSTITUTE_NAME application..."'
+                        sh 'exit 1' // simulate failure
+                    } catch (Exception e) {
+                        echo "Deployment failed. Rolling back $INSTITUTE_NAME application..."
+                    }
+                }
+            }
+        }
+    }
+}
+🔹 GitLab CI — Rollback Simulation
+I am replicating how to simulate rollback using after_script.
+
+yaml
+stages:
+  - deploy
+
+variables:
+  INSTITUTE_NAME: "Prasanta Pathnex"
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Deploying $INSTITUTE_NAME application..."
+    - exit 1
+  after_script:
+    - echo "Deployment failed. Rolling back $INSTITUTE_NAME application"

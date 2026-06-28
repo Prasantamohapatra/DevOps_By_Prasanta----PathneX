@@ -1,0 +1,81 @@
+Day 28 — Debug Day
+Fix these intentionally broken files:
+
+🔹 Ansible (fixed)
+yaml
+- name: Install Nginx for Prasanta Pathnex
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: present
+🔹 Terraform (fixed)
+hcl
+resource "aws_s3_bucket" "PrasantaPathnexBucket" {
+  bucket = "prasanta-pathnex-bucket"
+  acl    = "public-read"
+
+  tags = {
+    Name = "Prasanta-Pathnex-Bucket"
+  }
+}
+🔹 Kubernetes (fixed)
+yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prasanta-pathnex-pod
+spec:
+  containers:
+    - name: app
+      image: nginx
+Rollback Strategies
+🔹 Jenkins Pipeline — Automatic Rollback
+I am replicating how to rollback automatically if deployment fails.
+
+groovy
+pipeline {
+    agent any
+    environment {
+        INSTITUTE_NAME = "Prasanta Pathnex"
+        TEAM = "DevOps"
+        ENV = "prod"
+    }
+    stages {
+        stage('Deploy') {
+            steps {
+                script {
+                    try {
+                        sh 'echo "Deploying $INSTITUTE_NAME app in $ENV for $TEAM"'
+                        sh 'exit 1' // simulate failure
+                    } catch (Exception e) {
+                        echo "Deployment failed. Rolling back $INSTITUTE_NAME app in $ENV"
+                    }
+                }
+            }
+        }
+    }
+}
+🔹 GitLab CI — Rollback Strategy
+I am replicating how to simulate rollback in GitLab CI with tags.
+
+yaml
+stages:
+  - deploy
+
+variables:
+  INSTITUTE_NAME: "Prasanta Pathnex"
+  TEAM: "DevOps"
+  ENV: "prod"
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Deploying $INSTITUTE_NAME app in $ENV for $TEAM"
+    - exit 1
+  after_script:
+    - echo "Deployment failed. Rolling back $INSTITUTE_NAME app in $ENV"
